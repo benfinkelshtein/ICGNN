@@ -1,0 +1,23 @@
+# @package _global_
+
+#### Model params #############################################################
+model:
+  name: icgnn
+  hidden_dim: 16
+  icg_approx_args:
+    num_communities: 10
+    encode_dim: 0
+    dropout: 0.0
+    add_eigen: 1
+  icg_approx_train_args:
+    epochs: 10
+    lr: 0.01
+    loss_scale: 0.0
+    cut_norm: False
+    node_drop_ratio: 0.0
+  icgnn_args:
+    num_layers: 3
+    icgnn_type: Matrix
+    nn_num_layers: 1
+    dropout: 0.0
+    skip: False
