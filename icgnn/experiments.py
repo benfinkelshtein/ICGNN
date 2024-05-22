@@ -39,8 +39,8 @@ class TransExperiment(object):
         time_steps = TIME_STEPS if self.dataset_type.is_spatio_temporal() else 1
         num_nodes, in_dim = data.x.shape[-2], data.x.shape[-1]
         icg_approx_model_args = DecompArgs(num_communities=self.num_communities, encode_dim=self.encode_dim,
-                                           dropout=self.icg_approx_dropout, num_nodes=num_nodes, in_dim=in_dim,
-                                           add_eigen=self.add_eigen, init_affiliate_mat=None,
+                                           num_nodes=num_nodes, in_dim=in_dim, add_eigen=self.add_eigen,
+                                           node_drop_ratio=self.node_drop_ratio, init_affiliate_mat=None,
                                            init_com_scale=None, init_feat_mat=None, time_steps=time_steps)
         path = exp_path(dataset_name=self.dataset_type.name, icg_approx_args=icg_approx_model_args,
                         icg_approx_train_args=self.icg_approx_train_args, seed=0)

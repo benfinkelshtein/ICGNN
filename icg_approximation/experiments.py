@@ -55,6 +55,7 @@ class DecompExperiment(object):
         num_nodes, in_dim = data.x.shape[-2], data.x.shape[-1]
         model_args = DecompArgs(num_communities=self.num_communities, encode_dim=self.encode_dim,
                                 num_nodes=num_nodes, in_dim=in_dim, add_eigen=self.add_eigen,
+                                node_drop_ratio=self.node_drop_ratio,
                                 init_affiliate_mat=init_affiliate_mat, init_com_scale=init_com_scale,
                                 init_feat_mat=init_feat_mat, time_steps=time_steps)
         model = DecompModel(model_args=model_args, trans=False).to(device=self.device)

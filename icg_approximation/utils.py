@@ -54,7 +54,6 @@ def exp_path(dataset_name: str, icg_approx_args: DecompArgs, icg_approx_train_ar
     run_folder = f'{dataset_name}_' \
                  f'{icg_approx_args.num_communities}_' \
                  f'Enc{int(icg_approx_args.encode_dim)}_' \
-                 f'{icg_approx_args.dropout}_' \
                  f'Eig{int(icg_approx_args.add_eigen)}_' \
                  f'{icg_approx_train_args.epochs}_' \
                  f'{icg_approx_train_args.lr}_' \

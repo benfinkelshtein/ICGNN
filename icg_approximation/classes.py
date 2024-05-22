@@ -13,12 +13,12 @@ class DecompTrainArgs(NamedTuple):
 class DecompArgs(NamedTuple):
     num_communities: int
     encode_dim: int
-    dropout: float
 
     num_nodes: int
     in_dim: int
 
     add_eigen: bool
+    node_drop_ratio: float
     time_steps: int
     init_affiliate_mat: OptTensor
     init_com_scale: OptTensor

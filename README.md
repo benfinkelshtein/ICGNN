@@ -43,9 +43,9 @@ The available options are: communities (our synthetic dataset), tolokers, squirr
   
 ### Example running
 
-To perform experiments over the tolokers dataset for 50 communities, 1000 epochs, a lr of 0.001 and $\lambda=0.5$, while removing 0% of the graph: 
+To perform experiments over the tolokers dataset for 50 communities, 10 epochs, a lr of 0.001 and $\lambda=0.5$, while removing 0% of the graph: 
 ```bash
-python -u icg_approximation_main.py --dataset_type tolokers --num_communities 50 --icg_approx_epochs 1000 --icg_approx_lr 0.001 --loss_scale 0.5 --node_drop_ratio 0.0
+python -u icg_approximation_main.py --dataset_type tolokers --num_communities 50 --icg_approx_epochs 10 --icg_approx_lr 0.001 --loss_scale 0.5 --node_drop_ratio 0.0
 ```
 
 ### ICG-NN - node classification experiments
@@ -82,7 +82,7 @@ The available options are: Matrix for ICG$_u$-NN or MHA for ICG-NN.
 
 To perform experiments over a 3 layered ICG$_u$-NN model with a hidden dimension of 128 on the tolokers dataset for 300 epochs with a lr of 0.03 using the previous ICG approximation: 
 ```bash
-python -u icgnn_main.py --dataset_type tolokers --num_communities 50 --icg_approx_epochs 1000 --icg_approx_lr 0.001 --loss_scale 0.5 --node_drop_ratio 0.0 --num_layers 3 --icgnn_type Matrix --hidden_dim 128 --epochs 300 --lr 0.03
+python -u icgnn_main.py --dataset_type tolokers --num_communities 50 --icg_approx_epochs 10 --icg_approx_lr 0.001 --loss_scale 0.5 --node_drop_ratio 0.0 --num_layers 3 --icgnn_type Matrix --hidden_dim 128 --epochs 300 --lr 0.03
 ```
 
 ### ICG-NN - spatio-temporal experiments
@@ -119,6 +119,6 @@ The available options are: Matrix for ICG$_u$-NN or MHA for ICG-NN.
 
 To perform experiments over a 3 layered ICG$_u$-NN model with a hidden dimension of 128 on the METR-LA dataset for 300 epochs with a lr of 0.03 using the previous ICG approximation: 
 ```bash
-python -u icgnn_spatio_temporal_main.py model=icgnn dataset=la model.icg_approx_args.num_communities=50 model.icg_approx_train_args.icg_approx_epochs=1000 model.icg_approx_train_args.icg_approx_lr=0.001 model.icg_approx_train_args.loss_scale=0.5 model.icgnn_args.num_layers=3 model.icgnn_args.icgnn_type=Matrix model.hidden_dim=128 epochs=300 optimizer.hparams.lr=0.03
+python -u icgnn_spatio_temporal_main.py model=icgnn dataset=la model.icg_approx_args.num_communities=50 model.icg_approx_train_args.icg_approx_epochs=10 model.icg_approx_train_args.icg_approx_lr=0.001 model.icg_approx_train_args.loss_scale=0.5 model.icgnn_args.num_layers=3 model.icgnn_args.icgnn_type=Matrix model.hidden_dim=128 epochs=300 optimizer.hparams.lr=0.03
 ```
 
