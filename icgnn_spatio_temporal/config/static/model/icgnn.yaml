@@ -7,8 +7,8 @@ model:
   icg_approx_args:
     num_communities: 10
     encode_dim: 0
-    dropout: 0.0
-    add_eigen: 1
+    add_eigen: 0
+    node_drop_ratio: 0.0
   icg_approx_train_args:
     epochs: 10
     lr: 0.01

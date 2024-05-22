@@ -114,7 +114,7 @@ class DataSet(Enum):
         return dataset
 
     def select_fold(self, data: Data, num_fold: int) -> Data:
-        if self.get_family() in DataSetFamily.synthetic:
+        if self.get_family() is DataSetFamily.synthetic:
             return data
         elif self.get_family() is DataSetFamily.wiki:
             # geom-gcn splits (60, 20, 20)

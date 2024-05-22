@@ -118,7 +118,7 @@ def run_traffic(cfg: DictConfig):
     # Create model                         #
     ########################################
 
-    if cfg.model.name is 'icgnn':
+    if cfg.model.name == 'icgnn':
         from icg_approximation.classes import DecompArgs, DecompTrainArgs
         from icgnn.classes import TransArgs, CommArgs, TransType
         from icg_approximation.model import DecompModel
@@ -215,7 +215,7 @@ def run_traffic(cfg: DictConfig):
         scale_target=cfg.scale_target,
     )
 
-    if cfg.model.name is 'icgnn':
+    if cfg.model.name == 'icgnn':
         predictor.model.set_icg_approx_after_training()
 
     ########################################

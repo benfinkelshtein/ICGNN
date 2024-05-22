@@ -90,7 +90,7 @@ python -u icgnn_main.py --dataset_type tolokers --num_communities 50 --icg_appro
 After an ICG has been trained. We build over the codebase https://github.com/Graph-Machine-Learning-Group/taming-local-effects-stgnns for spatio-temporal experiments.
 The script we use to run ICG-NN is ``./icgnn_spatio_temporal_main.py``.
 Note that the script should be run with ``.`` as the main directory or source root.
-Also note that subsampling is not implemented for these datasets. Thus, node_drop_ratio=0.
+Also note that subsampling is not implemented for these datasets (node_drop_ratio=0) and nodes shouldn't be removed from the graph ($\lambda=0$). 
 
 Make that the following parameters match those used for the ICG approximation:
 
@@ -117,8 +117,9 @@ The available options are: Matrix for ICG$_u$-NN or MHA for ICG-NN.
   
 ### Example running
 
-To perform experiments over a 3 layered ICG$_u$-NN model with a hidden dimension of 128 on the METR-LA dataset for 300 epochs with a lr of 0.03 using the previous ICG approximation: 
+To perform experiments over a 3 layered ICG$_u$-NN model with a hidden dimension of 128 on the METR-LA dataset for 300 epochs with a lr of 0.03 using an ICG approximation with 50 communities, 10 epochs and a lr of 0.001: 
 ```bash
-python -u icgnn_spatio_temporal_main.py model=icgnn dataset=la model.icg_approx_args.num_communities=50 model.icg_approx_train_args.icg_approx_epochs=10 model.icg_approx_train_args.icg_approx_lr=0.001 model.icg_approx_train_args.loss_scale=0.5 model.icgnn_args.num_layers=3 model.icgnn_args.icgnn_type=Matrix model.hidden_dim=128 epochs=300 optimizer.hparams.lr=0.03
+python -u icg_approximation_main.py --dataset_type la --num_communities 50 --icg_approx_epochs 10 --icg_approx_lr 0.001 --loss_scale 0.0 --node_drop_ratio 0.0
+python -u icgnn_spatio_temporal_main.py config=benchmarks model=icgnn dataset=la model.icg_approx_args.num_communities=50 model.icg_approx_train_args.epochs=10 model.icg_approx_train_args.lr=0.001 model.icg_approx_train_args.loss_scale=0.0 model.icgnn_args.num_layers=3 model.icgnn_args.icgnn_type=Matrix model.hidden_dim=128 epochs=300 optimizer.hparams.lr=0.03
 ```
 

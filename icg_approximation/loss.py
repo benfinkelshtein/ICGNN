@@ -34,14 +34,12 @@ def calc_efficient_graphon_loss(data: Data, model, loss_scale: float, device, no
                                 is_spatio_temporal: bool) -> Tuple[Tensor, Tensor, Tensor]:
     # pre drop
     if is_spatio_temporal:
-        x = data.x.unsqueeze(dim=-1)
         num_time_steps, num_feat, num_nodes = data.x.shape[0], data.x.shape[1], data.x.shape[2]
     else:
-        x = data.x
         num_nodes, num_feat = data.x.shape[0], data.x.shape[1]
 
     # global term
-    x = model.encode(x=x.to(device))
+    x = model.encode(x=data.x.to(device))
     com_scale = model.com_scale
     affiliate_mat = model.affiliate_mat
     global_term = torch.trace(affiliate_mat.T @ model.affiliate_times_scale @ affiliate_mat.T \
@@ -67,7 +65,7 @@ def calc_efficient_graphon_loss(data: Data, model, loss_scale: float, device, no
 
     if loss_scale > 0:
         if data.x.dim() >= 3:
-            x_approx = torch.matmul((affiliate_mat * model.com_scale).unsqueeze(dim=0), model.feat_mat)
+            x_approx = torch.matmul((affiliate_mat * model.com_scale), model.feat_mat).unsqueeze(dim=0)
             signal_loss = torch.sum((x - x_approx) ** 2) / (num_feat * num_time_steps)
         else:
             signal_loss = torch.sum((x - (affiliate_mat * model.com_scale) @ model.feat_mat) ** 2) / num_feat
