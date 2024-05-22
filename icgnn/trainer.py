@@ -9,40 +9,32 @@ from additional_classes.dataset import DataSet
 from additional_classes.metrics import MetricType, LossesAndMetrics
 from icgnn.classes import TransTrainArgs, CommArgs
 from icg_approximation.model import DecompModel
-from gnn.classes import GNNArgs
 from icg_approximation.utils import set_seed
 from icgnn.utils import icgnn_final_log_and_print, epoch_log_and_print
 from icgnn.model import CommModel
-from gnn.model import GNN
 from helpers.constants import DECIMAL
 
 
 class TransTrainer(object):
-    def __init__(self, model_args: Union[GNNArgs, CommArgs], train_args: TransTrainArgs,
-                 seed: int, device, is_gnn: bool):
+    def __init__(self, model_args: CommArgs, train_args: TransTrainArgs,
+                 seed: int, device):
         super().__init__()
         self.model_args = model_args
         self.train_args = train_args
         self.seed = seed
         self.device = device
-        self.is_gnn = is_gnn
 
     def train_and_test_splits(self, dataset_type: DataSet, data: Data,
-                              icg_approx_model: Optional[DecompModel]) -> Union[CommModel, GNN]:
+                              icg_approx_model: Optional[DecompModel]) -> CommModel:
         folds = dataset_type.get_folds()
         metrics_list = []
         for num_fold in folds:
             set_seed(seed=self.seed)
             data_split = dataset_type.select_fold(num_fold=num_fold, data=data)
             print_str = f'Fold{num_fold}'
-
-            if self.is_gnn:
-                model = GNN(model_args=self.model_args).to(self.device)
-                optimizer = torch.optim.Adam(model.parameters(), lr=self.train_args.lr)
-            else:
-                model = CommModel(model_args=self.model_args, icg_approx_model=icg_approx_model).to(self.device)
-                model.set_icg_approx_after_training()
-                optimizer = torch.optim.Adam(model.get_icgnn_parameters(), lr=self.train_args.lr)
+            model = CommModel(model_args=self.model_args, icg_approx_model=icg_approx_model).to(self.device)
+            model.set_icg_approx_after_training()
+            optimizer = torch.optim.Adam(model.get_icgnn_parameters(), lr=self.train_args.lr)
 
             with tqdm.tqdm(total=self.train_args.epochs, file=sys.stdout) as pbar:
                 best_losses_n_metrics, model = \
@@ -61,9 +53,9 @@ class TransTrainer(object):
         icgnn_final_log_and_print(metrics_matrix=metrics_matrix)
         return model
 
-    def train_and_test(self, dataset_type: DataSet, data: Data, model: Union[CommModel, GNN],
+    def train_and_test(self, dataset_type: DataSet, data: Data, model: CommModel,
                        optimizer: Optimizer, epochs: int, pbar,
-                       fold_str: str) -> Tuple[LossesAndMetrics, Union[CommModel, GNN]]:
+                       fold_str: str) -> Tuple[LossesAndMetrics, CommModel]:
         metric_type = dataset_type.get_metric_type()
         task_loss = metric_type.get_task_loss()
         best_losses_n_metrics = metric_type.get_worst_losses_n_metrics()
@@ -94,7 +86,7 @@ class TransTrainer(object):
         model.load_state_dict(best_model_state_dict)
         return best_losses_n_metrics, model
 
-    def train(self, data: Data, model: Union[CommModel, GNN], optimizer, task_loss):
+    def train(self, data: Data, model: CommModel, optimizer, task_loss):
         model.train()
         optimizer.zero_grad()
 
@@ -107,7 +99,7 @@ class TransTrainer(object):
         loss.backward()
         optimizer.step()
 
-    def test(self, data: Data, model: Union[CommModel, GNN], task_loss, metric_type: MetricType,
+    def test(self, data: Data, model: CommModel, task_loss, metric_type: MetricType,
              mask_name: str) -> Tuple[float, float]:
         model.eval()
 

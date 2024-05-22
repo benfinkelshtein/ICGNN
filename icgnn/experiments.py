@@ -67,6 +67,5 @@ class TransExperiment(object):
         train_args = TransTrainArgs(epochs=self.epochs, lr=self.lr)
 
         # train
-        trainer = TransTrainer(model_args=model_args, train_args=train_args, seed=0, device=self.device,
-                               is_gnn=False)
+        trainer = TransTrainer(model_args=model_args, train_args=train_args, seed=0, device=self.device)
         trainer.train_and_test_splits(dataset_type=self.dataset_type, data=data, icg_approx_model=icg_approx_model)
