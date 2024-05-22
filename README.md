@@ -29,7 +29,7 @@ Note that the script should be run with ``.`` as the main directory or source ro
 The parameters of the script are:
 
 - ``--dataset_type``: name of the dataset.
-The available options are: communities (our synthetic dataset), tolokers, squirrel, twitch_gamers, bay, la.
+The available options are: communities (a synthetic dataset to test the code with), tolokers, squirrel, twitch_gamers, bay, la.
 
 - ``--icg_approx_epochs``: the number of epochs for the approximation.
 - ``--icg_approx_lr``: the lr for the approximation.
@@ -54,7 +54,7 @@ Note that the script should be run with ``.`` as the main directory or source ro
 Make sure that the following parameters match those used for the ICG approximation:
 
 - ``--dataset_type``: name of the dataset.
-The available options are: communities (our synthetic dataset), tolokers, squirrel, twitch_gamers, bay, la.
+The available options are: communities (a synthetic dataset to test the code with), tolokers, squirrel, twitch_gamers, bay, la.
 - ``--icg_approx_epochs``: the number of epochs used for the approximation.
 - ``--icg_approx_lr``: the lr for the approximation.
 - ``--loss_scale``: the scaler $\lambda$ between the graph and signal loss.
@@ -90,7 +90,7 @@ Also note that subsampling is not implemented for these datasets (node_drop_rati
 Make sure that the following parameters match those used for the ICG approximation:
 
 - ``dataset=``: name of the dataset.
-The available options are: communities (our synthetic dataset), tolokers, squirrel, twitch_gamers, bay, la.
+The available options are: communities (a synthetic dataset to test the code with), tolokers, squirrel, twitch_gamers, bay, la.
 - ``model.icg_approx_train_args.icg_approx_epochs``: the number of epochs used for the approximation.
 - ``model.icg_approx_train_args.icg_approx_lr``: the lr for the approximation.
 - ``model.icg_approx_train_args.loss_scale``: the scaler $\lambda$ between the graph and signal loss.
