@@ -40,8 +40,6 @@ The available options are: communities (our synthetic dataset), tolokers, squirr
 - ``--num_communities``: the number of communities used in the approximation.
 - ``--encode_dim``: the output dimension of the linear encoder that is applied to the features. If set to zero, no encoding is applied.
 - ``--seed``: a seed to set random processes.
-  
-### Example running
 
 To perform experiments over the tolokers dataset for 50 communities, 10 epochs, a lr of 0.001 and $\lambda=0.5$, while removing 0% of the graph: 
 ```bash
@@ -53,7 +51,7 @@ python -u icg_approximation_main.py --dataset_type tolokers --num_communities 50
 After an ICG has been trained. The script we use to run ICG-NN is ``./icgnn_main.py``.
 Note that the script should be run with ``.`` as the main directory or source root.
 
-Make that the following parameters match those used for the ICG approximation:
+Make sure that the following parameters match those used for the ICG approximation:
 
 - ``--dataset_type``: name of the dataset.
 The available options are: communities (our synthetic dataset), tolokers, squirrel, twitch_gamers, bay, la.
@@ -77,9 +75,6 @@ The available options are: Matrix for ICG$_u$-NN or MHA for ICG-NN.
 - ``--epochs``: the number of epochs used for the fitting.
 - ``--lr``: the learning used for the fitting.
 
-  
-### Example running
-
 To perform experiments over a 3 layered ICG$_u$-NN model with a hidden dimension of 128 on the tolokers dataset for 300 epochs with a lr of 0.03 using the previous ICG approximation: 
 ```bash
 python -u icgnn_main.py --dataset_type tolokers --num_communities 50 --icg_approx_epochs 10 --icg_approx_lr 0.001 --loss_scale 0.5 --node_drop_ratio 0.0 --num_layers 3 --icgnn_type Matrix --hidden_dim 128 --epochs 300 --lr 0.03
@@ -92,7 +87,7 @@ The script we use to run ICG-NN is ``./icgnn_spatio_temporal_main.py``.
 Note that the script should be run with ``.`` as the main directory or source root.
 Also note that subsampling is not implemented for these datasets (node_drop_ratio=0) and nodes shouldn't be removed from the graph ($\lambda=0$). 
 
-Make that the following parameters match those used for the ICG approximation:
+Make sure that the following parameters match those used for the ICG approximation:
 
 - ``dataset=``: name of the dataset.
 The available options are: communities (our synthetic dataset), tolokers, squirrel, twitch_gamers, bay, la.
@@ -114,12 +109,30 @@ The available options are: Matrix for ICG$_u$-NN or MHA for ICG-NN.
 - ``epochs=``: the number of epochs used for the fitting.
 - ``optimizer.hparams.lr=``: the learning used for the fitting.
 
-  
-### Example running
-
 To perform experiments over a 3 layered ICG$_u$-NN model with a hidden dimension of 128 on the METR-LA dataset for 300 epochs with a lr of 0.03 using an ICG approximation with 50 communities, 10 epochs and a lr of 0.001: 
 ```bash
 python -u icg_approximation_main.py --dataset_type la --num_communities 50 --icg_approx_epochs 10 --icg_approx_lr 0.001 --loss_scale 0.0 --node_drop_ratio 0.0
 python -u icgnn_spatio_temporal_main.py config=benchmarks model=icgnn dataset=la model.icg_approx_args.num_communities=50 model.icg_approx_train_args.epochs=10 model.icg_approx_train_args.lr=0.001 model.icg_approx_train_args.loss_scale=0.0 model.icgnn_args.num_layers=3 model.icgnn_args.icgnn_type=Matrix model.hidden_dim=128 epochs=300 optimizer.hparams.lr=0.03
 ```
 
+### GNN - synthetic communities dataset
+The script we use to run GNN is ``./gnn_main.py``.
+Note that the script should be run with ``.`` as the main directory or source root.
+
+The parameters for the scripts are:
+- ``--dataset_type``: name of the dataset.
+The available options are: communities (our synthetic dataset), tolokers, squirrel, twitch_gamers, bay, la.
+- ``--model_type``: name of the model.
+The available options are: communities MEAN_GNN, GCN, GAT and GPS.
+- ``--rw_pos_length``: the number of random walks for the positional encoding of GPS.
+- ``--num_layers``: the number of ICG-NN layers.
+- ``--hidden_dim``: the hidden dimension.
+- ``--dropout``: the dropout ratio.
+- ``--skip``: whether or not to include a residual connection.
+- ``--epochs``: the number of epochs used for the fitting.
+- ``--lr``: the learning used for the fitting.
+
+To perform experiments over a 3 layered GCN model with a hidden dimension of 128 on our synthetic dataset for 300 epochs with a lr of 0.03: 
+```bash
+python -u gnn_main.py --dataset_type communities --model_type GCN --num_layers 3 --hidden_dim 128 --epochs 300 --lr 0.03
+```

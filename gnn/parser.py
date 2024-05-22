@@ -18,7 +18,6 @@ def gnn_parse_arguments():
     parser.add_argument("--hidden_dim", dest="hidden_dim", default=8, type=int, required=False)
     parser.add_argument("--skip", dest="skip", default=False, action='store_true', required=False)
     parser.add_argument("--dropout", dest="dropout", default=0.0, type=float, required=False)
-    parser.add_argument('--rw_pos_length', dest='rw_pos_length', type=int, default=0, required=False)
 
     # optimization
     parser.add_argument("--epochs", dest="epochs", default=300, type=int, required=False)
