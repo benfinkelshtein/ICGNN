@@ -119,7 +119,7 @@ python -u icgnn_spatio_temporal_main.py config=benchmarks model=icgnn dataset=la
 
 If you make use of this code, or its accompanying [paper](https://arxiv.org/abs/2405.20724), please cite this work as follows:
 ```bibtex
-@inproceedings{finkelshtein2023cooperative,
+@inproceedings{finkelshtein2024learninglargegraphs,
   title={Learning on Large Graphs using Intersecting Communities}, 
   author={Ben Finkelshtein and İsmail İlkan Ceylan and Michael Bronstein and Ron Levie},
   year = "2024",
