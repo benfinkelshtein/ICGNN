@@ -1,6 +1,6 @@
 # Learning on Large Graphs using Intersecting Communities
 
-This repository contains the official code base of the paper **Learning on Large Graphs sing Intersecting Communities**, based on PyTorch and [PyG].
+This repository contains the official code base of the paper **[Learning on Large Graphs sing Intersecting Communities](https://arxiv.org/abs/2405.20724)**, accepted to NeurIPS 2024.
 
 [PyG]: https://pytorch-geometric.readthedocs.io/en/latest/
 
@@ -113,4 +113,17 @@ To perform experiments over a 3 layered ICG$_u$-NN model with a hidden dimension
 ```bash
 python -u icg_approximation_main.py --dataset_type la --num_communities 50 --icg_approx_epochs 10 --icg_approx_lr 0.001 --loss_scale 0.0 --node_drop_ratio 0.0
 python -u icgnn_spatio_temporal_main.py config=benchmarks model=icgnn dataset=la model.icg_approx_args.num_communities=50 model.icg_approx_train_args.epochs=10 model.icg_approx_train_args.lr=0.001 model.icg_approx_train_args.loss_scale=0.0 model.icgnn_args.num_layers=3 model.icgnn_args.icgnn_type=Matrix model.hidden_dim=128 epochs=300 optimizer.hparams.lr=0.03
+```
+
+## Cite
+
+If you make use of this code, or its accompanying [paper](https://arxiv.org/abs/2405.20724), please cite this work as follows:
+```bibtex
+@inproceedings{finkelshtein2023cooperative,
+  title={Learning on Large Graphs using Intersecting Communities}, 
+  author={Ben Finkelshtein and İsmail İlkan Ceylan and Michael Bronstein and Ron Levie},
+  year = "2024",
+  booktitle = "Proceedings of 38th Conference on Neural Information Processing Systems (NeurIPS 2024)",
+  url = "https://arxiv.org/abs/2310.01267",
+}
 ```
